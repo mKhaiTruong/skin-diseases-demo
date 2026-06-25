@@ -17,11 +17,13 @@ from agent import RagConfig
 from vision_node import VisionONNXNode
 from helpers.assets import download_assets
 
+import os
+PERSIST_DIR = "/data" if os.path.exists("/data") else "data_persist"
 
 def get_checkpointer():
     global _checkpointer
     if _checkpointer is None:
-        conn = sqlite3.connect("langgraph.db", check_same_thread=False)
+        conn = sqlite3.connect(f"{PERSIST_DIR}/langgraph.db", check_same_thread=False)
         _checkpointer = AsyncSqliteSaver(conn)
     return _checkpointer
 

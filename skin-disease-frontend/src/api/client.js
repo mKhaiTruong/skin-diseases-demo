@@ -18,7 +18,9 @@ export const predictStream = (threadId, file, onChunk, onDone) => {
   const formData = new FormData()
   formData.append('file', file)
 
-  return fetch(`http://localhost:8000/threads/${threadId}/predict/stream`, {
+  const baseURL = import.meta.env.VITE_API_URL || ''
+
+  return fetch(`${baseURL}/threads/${threadId}/predict/stream`, {
     method: 'POST',
     body: formData,
   }).then(async (res) => {

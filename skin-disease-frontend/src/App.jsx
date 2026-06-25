@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -6,7 +6,7 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import { Button, Tooltip, Typography, Layout, theme } from 'antd'
+import { Button, Tooltip, Typography, Layout, Spin, theme } from 'antd'
 import Sidebar from './components/Sidebar'
 import ChatWindow from './components/ChatWindow'
 import './index.css'
@@ -19,6 +19,10 @@ export default function App() {
   const [refresh, setRefresh]     = useState(0)
   const [collapsed, setCollapsed] = useState(false);
   const [backendReady, setBackendReady] = useState(false)
+
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken()
 
   useEffect(() => {
     const checkBackend = async () => {
@@ -33,6 +37,12 @@ export default function App() {
     checkBackend()
   }, [])
 
+  const handleThreadChange  = (tid) => setThreadId(tid)
+  const handleThreadDeleted = () => {
+    setThreadId(null)
+    setRefresh(r => r + 1)
+  }
+
   if (!backendReady) return (
     <div style={{
       height: '100vh', display: 'flex', flexDirection: 'column',
@@ -46,16 +56,6 @@ export default function App() {
       </Text>
     </div>
   )
-
-  const handleThreadChange  = (tid) => setThreadId(tid)
-  const handleThreadDeleted = () => {
-    setThreadId(null)
-    setRefresh(r => r + 1)
-  }
-
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
 
   return (
     <Layout style={{ height: '100vh', background: 'var(--color-bg)' }}>

@@ -1,6 +1,9 @@
+import os
 import sqlite3
 
-DB_PATH = "chat.db"
+PERSIST_DIR = "/data" if os.path.exists("/data") else "data_persist"
+os.makedirs(PERSIST_DIR, exist_ok=True)
+DB_PATH = f"{PERSIST_DIR}/chat.db"
 
 def get_conn():
     conn = sqlite3.connect(DB_PATH, check_same_thread=False)
