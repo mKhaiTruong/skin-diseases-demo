@@ -15,7 +15,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install test dependencies
-        run: pip install fastapi uvicorn pytest httpx python-multipart
+        run: pip install fastapi uvicorn pytest httpx python-multipart python-dotenv
 
       - name: Run tests
         run: pytest tests/ -v
