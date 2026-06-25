@@ -1,0 +1,11 @@
+streamlit
+onnxruntime
+pillow
+numpy
+boto3
+fastapi
+python-dotenv
+langgraph-checkpoint-sqlite
+git+https://github.com/mKhaiTruong/skin-disease-agent.git#subdirectory=packages/core
+git+https://github.com/mKhaiTruong/skin-disease-agent.git#subdirectory=packages/agent
+git+https://github.com/mKhaiTruong/skin-disease.git#subdirectory=packages/vision

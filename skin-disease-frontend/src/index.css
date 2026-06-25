@@ -1,0 +1,43 @@
+:root {
+  /* Background */
+  --color-bg: #f1e8dc;
+
+  /* Cards / Sidebar */
+  --color-sidebar: #faf6f0;
+
+  /* Purple Accent */
+  --color-primary: #9569db;
+  --color-primary-hover: #723EC3;
+
+  /* Chat Bubbles */
+  --color-bubble-user: #ece7ff;
+  --color-bubble-ai: #f7f5fc;
+
+  /* Borders */
+  --color-border: #DA4848;
+
+  /* Text */
+  --color-text: #36064D;
+  --color-text-muted: #240432;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--color-bg);
+  font-family: 'Inter', sans-serif;
+  color: var(--color-text);
+}
+
+.ant-btn-primary {
+  background: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  color: white !important;
+}
+
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  background: var(--color-primary-hover) !important;
+  border-color: var(--color-primary-hover) !important;
+  color: white !important;
+}
