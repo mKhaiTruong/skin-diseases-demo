@@ -8,6 +8,9 @@ RUN apt-get update && apt-get install -y gcc curl git \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN pip show sentence-transformers || echo "sentence-transformers NOT installed"
+RUN pip show langchain-huggingface || echo "langchain-huggingface NOT installed"
+
 RUN mkdir -p /app/data_persist
 VOLUME /app/data_persist
 
