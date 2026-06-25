@@ -48,9 +48,8 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git config user.email "deploy@github.com"
-          git config user.name "GitHub Actions"
+          git config --global user.email "ci@github.com"
+          git config --global user.name "GitHub Actions"
           git add frontend/dist
           git commit -m "ci: rebuild frontend" || echo "nothing to commit"
-          git remote add space https://bill123mk:$HF_TOKEN@huggingface.co/spaces/bill123mk/skin-diseases-chatbot
-          git push space main --force
+          git push https://bill123mk:${HF_TOKEN}@huggingface.co/spaces/bill123mk/skin-diseases-chatbot main --force
