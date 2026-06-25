@@ -6,17 +6,46 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import { Button, Tooltip, Layout, theme } from 'antd'
+import { Button, Tooltip, Typography, Layout, theme } from 'antd'
 import Sidebar from './components/Sidebar'
 import ChatWindow from './components/ChatWindow'
 import './index.css'
 
 const { Sider, Content } = Layout;
+const { Text } = Typography
 
 export default function App() {
   const [threadId, setThreadId]   = useState(null)
   const [refresh, setRefresh]     = useState(0)
   const [collapsed, setCollapsed] = useState(false);
+  const [backendReady, setBackendReady] = useState(false)
+
+  useEffect(() => {
+    const checkBackend = async () => {
+      while (true) {
+        try {
+          const res = await fetch('/health')
+          if (res.ok) { setBackendReady(true); break }
+        } catch {}
+        await new Promise(r => setTimeout(r, 2000))
+      }
+    }
+    checkBackend()
+  }, [])
+
+  if (!backendReady) return (
+    <div style={{
+      height: '100vh', display: 'flex', flexDirection: 'column',
+      alignItems: 'center', justifyContent: 'center', gap: 16,
+      background: 'var(--color-bg)'
+    }}>
+      <span style={{ fontSize: 48 }}>🩺</span>
+      <Spin size="large" />
+      <Text style={{ color: 'var(--color-text-muted)' }}>
+        Đang khởi động hệ thống, vui lòng chờ...
+      </Text>
+    </div>
+  )
 
   const handleThreadChange  = (tid) => setThreadId(tid)
   const handleThreadDeleted = () => {
@@ -29,8 +58,7 @@ export default function App() {
   } = theme.useToken();
 
   return (
-    // <Layout style={{ height: '100vh', background: 'var(--color-bg)' }}>
-    <Layout>
+    <Layout style={{ height: '100vh', background: 'var(--color-bg)' }}>
       {/* Sider ------------------------------------------------------- */}
       <Sider
         trigger={null}
@@ -39,7 +67,7 @@ export default function App() {
         width={300}
         style={{
           background: 'var(--color-sidebar)',
-          borderRight: '1px solid var(--color-border)'
+          borderRight: '2px solid var(--color-border)'
         }}
       >
         <div

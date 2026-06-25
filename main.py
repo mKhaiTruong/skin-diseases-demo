@@ -32,5 +32,9 @@ app.include_router(threads.router)
 app.include_router(predict.router)
 app.include_router(chat.router)
 
+@app.get("/health")
+async def health():
+    return {"status": "ok"}
+
 if os.path.exists("frontend/dist"):
     app.mount("/", StaticFiles(directory="frontend/dist", html=True), name="static")
