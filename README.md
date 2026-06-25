@@ -13,6 +13,9 @@ AI-powered dermatology assistant that analyzes skin condition images and provide
 
 **[Live Demo](https://huggingface.co/spaces/bill123mk/skin-diseases-chatbot)**
 
+**[Video showcasing](https://www.loom.com/share/386304def23a4ec79bd32c422a4c3837)**
+
+
 ---
 
 ## 🏗️ Architecture
@@ -24,12 +27,12 @@ Image Upload → Vision Model (ONNX) → RAG Pipeline (ChromaDB) → LLM Recomme
 ```
 
 **Stack:**
-- **Vision**: EfficientNet-B0 → ONNX (CPU inference)
+- **Vision**: EfficientNet-B0 → ONNX (CPU inference) -> Weights stored in AWS S3
 - **RAG**: ChromaDB + Gemini Embeddings + Vietnamese medical PDF
 - **Agent**: LangGraph + Claude Haiku
 - **Backend**: FastAPI + SQLite
 - **Frontend**: React + Ant Design
-- **Deploy**: HuggingFace Spaces (Docker)
+- **Deploy**: HuggingFace Spaces (Docker) (EC2 too expensive)
 
 ---
 
@@ -78,6 +81,12 @@ Open `http://localhost:7860`
 
 ---
 
+## Langraph Flow
+
+<img width="281" height="531" alt="Image" src="https://github.com/user-attachments/assets/7a87e888-196f-46b9-9efa-6b8b93e47cf2" />
+
+---
+
 ## 📁 Project Structure
 
 ```
@@ -115,6 +124,15 @@ GitHub Actions pipeline:
 1. **Test** — pytest API tests
 2. **Build** — React frontend
 3. **Deploy** — Auto push to HuggingFace Spaces
+
+---
+
+## 🩺 Known problem
+
+I do this project to hon my overall knowledge, so...:
+1. **Accuracy** — both Vision and Agent evaluation is good but can be much better
+2. **Build** — Not a frontend expert so the UI might damage your brain
+3. **Deploy** — HuggingFace Spaces with CPU -> a bit slow...
 
 ---
 
