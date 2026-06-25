@@ -6,6 +6,10 @@ from fastapi.testclient import TestClient
 with patch("pipeline.build_pipeline", return_value=MagicMock()):
     from main import app
 
+@pytest.fixture(autouse=True)
+def setup_db():
+    init_db()
+
 client = TestClient(app)
 
 def test_health():
