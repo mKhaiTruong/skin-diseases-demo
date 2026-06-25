@@ -15,7 +15,11 @@ jobs:
           python-version: "3.12"
 
       - name: Install test dependencies
-        run: pip install fastapi uvicorn pytest httpx python-multipart python-dotenv langgraph langgraph-checkpoint-sqlite
+        run: |
+          pip install fastapi uvicorn pytest httpx python-multipart python-dotenv langgraph langgraph-checkpoint-sqlite
+          pip install git+https://github.com/mKhaiTruong/skin-disease-agent.git#subdirectory=packages/core
+          pip install git+https://github.com/mKhaiTruong/skin-disease-agent.git#subdirectory=packages/agent
+          pip install git+https://github.com/mKhaiTruong/skin-disease.git#subdirectory=packages/vision
 
       - name: Run tests
         run: pytest tests/ -v
