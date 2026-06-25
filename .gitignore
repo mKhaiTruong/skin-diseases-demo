@@ -13,7 +13,6 @@ mlflow.db
 *.png
 
 build/
-dist/
 wheels/
 logs/
 artifacts/

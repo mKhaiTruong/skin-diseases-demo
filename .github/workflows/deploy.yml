@@ -1,0 +1,52 @@
+name: Test and Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install test dependencies
+        run: pip install fastapi uvicorn pytest httpx python-multipart
+
+      - name: Run tests
+        run: pytest tests/ -v
+
+  build-and-deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build frontend
+        run: |
+          cd skin-disease-frontend
+          npm install
+          npm run build
+          cd ..
+          cp -r skin-disease-frontend/dist frontend/dist
+
+      - name: Push to HF Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          git config user.email "deploy@github.com"
+          git config user.name "GitHub Actions"
+          git add frontend/dist
+          git commit -m "ci: rebuild frontend" || echo "nothing to commit"
+          git remote add space https://bill123mk:$HF_TOKEN@huggingface.co/spaces/bill123mk/skin-diseases-chatbot
+          git push space main --force
