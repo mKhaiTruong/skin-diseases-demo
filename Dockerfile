@@ -9,6 +9,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs
 
 # Build frontend
+RUN mkdir -p ./frontend && cp -r skin-disease-frontend/dist ./frontend/dist
 COPY skin-disease-frontend/ ./skin-disease-frontend/
 RUN cd skin-disease-frontend && npm install && npm run build
 
