@@ -4,7 +4,7 @@ import boto3
 from pathlib import Path
 
 def download_assets() -> tuple[Path, Path]:
-    s3 = boto3.client("s3")
+    s3 = boto3.client("s3") 
     bucket = os.getenv("S3_BUCKET")
 
     onnx_path = Path("/tmp/weights.onnx")
