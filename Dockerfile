@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y gcc curl git \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ..
+COPY . .
 
 EXPOSE 7860
 
