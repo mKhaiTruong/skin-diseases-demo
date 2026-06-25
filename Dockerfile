@@ -5,22 +5,10 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y gcc curl git \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs
-
-# Build frontend
-RUN mkdir -p ./frontend && cp -r skin-disease-frontend/dist ./frontend/dist
-COPY skin-disease-frontend/ ./skin-disease-frontend/
-RUN cd skin-disease-frontend && npm install && ls && npm run build && ls
-
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY main.py pipeline.py state.py db.py vision_node.py ./
-COPY routers/ ./routers/
-COPY helpers/ ./helpers/
-
-RUN cp -r skin-disease-frontend/dist ./frontend/dist
+COPY ..
 
 EXPOSE 7860
 

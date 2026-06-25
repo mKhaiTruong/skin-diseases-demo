@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+*.db
+*.db-shm
+*.db-wal
+.env
+.git/
+skin-disease-frontend/node_modules/
+skin-disease-frontend/src/
+skin-disease-frontend/public/
+skin-disease-frontend/*.json
+skin-disease-frontend/*.js
+skin-disease-frontend/*.ts
+skin-disease-frontend/*.html
