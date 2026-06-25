@@ -1,6 +1,7 @@
 import pytest
 from unittest.mock import MagicMock, patch
 from fastapi.testclient import TestClient
+from db import init_db
 
 # Mock pipeline
 with patch("pipeline.build_pipeline", return_value=MagicMock()):
